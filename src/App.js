@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Root from "./components/pages/Root"
+import CameraPage from "./components/pages/Camera"
+import { useState } from "react"
+import PrinterPage from "./components/pages/Printer"
+import Admin from "./components/pages/Admin"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(){
+
+    const [Query, setQuery] = useState("")
+
+    return(
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Root Query={Query} setQuery={setQuery}/>}/>
+                <Route path="/camera" element={<CameraPage Query={Query} setQuery={setQuery}/>}/>
+                <Route path="/printer" element={<PrinterPage Query={Query} setQuery={setQuery}/>}/>
+                <Route path="/admin" element={<Admin/>}/>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App;
