@@ -1,15 +1,27 @@
 import { useState } from "react";
 
-function Admin(){
+function Login(){
 
     const [loginData, setLoginData] = useState({
-        "username":"", "password":""
+        "username":"", "pass":""
     })
 
-    function loginSubmit(e){
+    function loginSubmit(e) {
         e.preventDefault()
         
-    }
+        fetch("http://127.0.0.1:5000/adminlogin",{
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "username": loginData.username,
+                "pass": loginData.pass
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        }
 
     function onclick(e){
         setLoginData(prev => (
@@ -29,7 +41,7 @@ function Admin(){
                     </div>
                     <div className="label-input">
                         <label htmlFor="password" className="login-label">Password</label>
-                        <input type="password" className="password" id="password" placeholder="Enter your Password" value={loginData.password} onChange={onclick} name="password"/>
+                        <input type="password" className="password" id="password" placeholder="Enter your Password" value={loginData.pass} onChange={onclick} name="pass"/>
                     </div>
                     <button className="login-btn">LOGIN</button>
                 </form>
@@ -39,4 +51,4 @@ function Admin(){
     )
 }
 
-export default Admin;
+export default Login;
