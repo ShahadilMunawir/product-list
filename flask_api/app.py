@@ -89,6 +89,18 @@ def admin_page():
         "admin": True
     })
 
+@app.route("/get_products")
+def get_products():
+    cur = sqlite3.connect("db.sqlite").cursor()
+    cur.execute('''SELECT * FROM products''')
+    row_headers=[x[0] for x in cur.description]
+    rows = cur.fetchall()
+    json_data=[]
+    for result in rows:
+        json_data.append(dict(zip(row_headers,result)))
+
+    return json.dumps(json_data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
