@@ -5,6 +5,7 @@ from flask_cors import CORS, cross_origin
 from model import db, User, Products
 from config import ApplicationConfig
 from datetime import datetime
+import sqlite3
 import os
 
 app = Flask(__name__)
@@ -96,8 +97,8 @@ def get_products():
     row_headers=[x[0] for x in cur.description]
     rows = cur.fetchall()
     json_data=[]
-    for result in rows:
-        json_data.append(dict(zip(row_headers,result)))
+    for row in rows:
+        json_data.append(dict(zip(row_headers,row)))
 
     return json.dumps(json_data)
 
